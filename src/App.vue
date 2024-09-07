@@ -1,43 +1,57 @@
-<!-- js -->
+<!-- js  -->
 <script setup>
 import { ref } from 'vue';
-
+/**
+  todo item
+  key: text, done
+  item.text or item['text']
+  {
+    text: string
+    done: boolean(true/false)
+  }
+*/
 const inputValue = ref('');
 const todoList = ref([
   { text: 'vue', done: false },
   { text: 'react', done: false },
-  { text: 'vercel', done: false }
+  { text: 'vercel', done: false },
 ]);
 
-const handleClickButton = () => {  
-  if (inputValue.value.trim() !== '') {   
-    todoList.value.push({ text: inputValue.value, done: false });
-    inputValue.value = '';  
-  }
+const handleClickButton = () => {
+  todoList.value.push(inputValue.value);
 };
 
-const handleclickDeleteButton = (index) => {
+const handleChange = (event) => {
+  const nextValue = event.target.value;
+  inputValue.value = nextValue;
+};
+
+const handleClickDeleteButton = (index) => {
   todoList.value.splice(index, 1);
 };
 </script>
 
 <!-- html -->
 <template>
+  <p>{{ todoList }}</p>
   <h4>TODO LIST</h4>
 
-  <input v-model="inputValue" placeholder="할 일을 입력하세요" /> 
-  <p>{{ inputValue }}</p>
+  <input v-model="inputValue" />
+  <!-- <input :value="inputValue" @change="handleChange" /> -->
 
-  <button @click="handleClickButton">확인</button> 
+  <button @click="handleClickButton">확인</button>
 
-  <div v-for="(todo, index) in todoList" :key="index" class="todo-item">  
-    <input type="checkbox" v-model="todo.done" />  
-    <span :class="{ 'done-item': todo.done }">{{ todo.text }}</span>
-
-    <button >수정</button>
-    <button @click="handleclickDeleteButton(index)">삭제</button> 
-  
-  </div>  
+  <div class="todo-item" v-for="(item, index) in todoList">
+    <input type="checkbox" v-model="item.done" />
+    <span :class="{ 'done-item': item.done }">{{ item.text }}</span>
+    <!-- item.done ? <span class="done-item"... : 
+                      <span class="" ...
+    -->
+    <div>
+      <!-- <button>수정</button> -->
+      <button @click="handleClickDeleteButton(index)">삭제</button>
+    </div>
+  </div>
 </template>
 
 <!-- css -->
@@ -49,25 +63,6 @@ const handleclickDeleteButton = (index) => {
   justify-content: space-between;
   align-items: center;
   border: 1px solid gray;
-  margin-top: 10px;  
-  padding: 10px;
-  font-size: 12px;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-button {
-  padding: 6px 10px;
-  font-size: 12px;
-  border-radius: 2px;
-  writing-mode: vertical-lr;
 }
 
 .done-item {
