@@ -34,7 +34,7 @@ const handleClickDeleteButton = (index) => {
 <!-- html -->
 <template>
   <p>{{ todoList }}</p>
-  <h4>TODO LIST</h4>
+  <h1>TODO LIST</h1>
 
   <input v-model="inputValue" class="large-input"/>
   <!-- <input :value="inputValue" @change="handleChange" /> -->
