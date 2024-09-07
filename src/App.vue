@@ -36,7 +36,7 @@ const handleClickDeleteButton = (index) => {
   <p>{{ todoList }}</p>
   <h4>TODO LIST</h4>
 
-  <input v-model="inputValue" />
+  <input v-model="inputValue" class="large-input"/>
   <!-- <input :value="inputValue" @change="handleChange" /> -->
 
   <button @click="handleClickButton">확인</button>
@@ -68,6 +68,17 @@ const handleClickDeleteButton = (index) => {
 .done-item {
   text-decoration: line-through;
 }
+
+.large-input {
+  width: 100%;        /* 입력 상자가 부모 컨테이너의 전체 너비를 차지하도록 설정 */
+  height: 50px;       /* 입력 상자의 높이를 증가 */
+  padding: 10px 20px; /* 내부 여백을 넉넉하게 설정 */
+  font-size: 16px;    /* 입력되는 텍스트의 크기를 증가 */
+  border: 1px solid #ccc; /* 스타일링을 위한 테두리 */
+  border-radius: 5px; /* 모서리를 둥글게 */
+  box-sizing: border-box; /* 박스 모델 설정으로 패딩을 포함한 전체 너비를 유지 */
+}
+
 </style>
 
 
